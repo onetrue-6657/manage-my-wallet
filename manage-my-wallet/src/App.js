@@ -1,23 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import React from "react";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+import "./styles/App.css";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+    <div>
+      <Header />
+      <main>
+        <h2>Welcome to Manage My Wallet!</h2>
         <p>
-          Edit <code>src/App.js</code> and save to reload.
+          This is a simple application for managing your personal finances. You
+          can add, update, and delete transactions, as well as calculate your
+          net worth.
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      </main>
+      <Footer />
     </div>
   );
 }
