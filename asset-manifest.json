@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/Manage-My-Wallet/static/css/main.2a79944f.css",
-    "main.js": "/Manage-My-Wallet/static/js/main.98009bd6.js",
-    "static/js/453.4e32b2be.chunk.js": "/Manage-My-Wallet/static/js/453.4e32b2be.chunk.js",
-    "index.html": "/Manage-My-Wallet/index.html",
-    "main.2a79944f.css.map": "/Manage-My-Wallet/static/css/main.2a79944f.css.map",
-    "main.98009bd6.js.map": "/Manage-My-Wallet/static/js/main.98009bd6.js.map",
-    "453.4e32b2be.chunk.js.map": "/Manage-My-Wallet/static/js/453.4e32b2be.chunk.js.map"
+    "main.css": "/static/css/main.2a79944f.css",
+    "main.js": "/static/js/main.b0f9db81.js",
+    "static/js/453.4e32b2be.chunk.js": "/static/js/453.4e32b2be.chunk.js",
+    "index.html": "/index.html",
+    "main.2a79944f.css.map": "/static/css/main.2a79944f.css.map",
+    "main.b0f9db81.js.map": "/static/js/main.b0f9db81.js.map",
+    "453.4e32b2be.chunk.js.map": "/static/js/453.4e32b2be.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.2a79944f.css",
-    "static/js/main.98009bd6.js"
+    "static/js/main.b0f9db81.js"
   ]
 }
