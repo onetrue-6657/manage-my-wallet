@@ -20,6 +20,14 @@ const AddExpense = () => {
     }));
   };
 
+  const handleAmountChange = (values) => {
+    const { value } = values;
+    setExpense((prevExpense) => ({
+      ...prevExpense,
+      amount: value,
+    }));
+  };
+
   const handleSumbit = (e) => {
     e.preventDefault();
     setExpensesList((prevList) => [...prevList, expense]);
@@ -63,6 +71,8 @@ const AddExpense = () => {
             fixedDecimalScale={true}
             allowNegative={false}
             placeholder="$0.00"
+            onValueChange={handleAmountChange}
+            value={expense.amount}
           />
         </div>
         <div className="form-group">
@@ -116,7 +126,7 @@ const AddExpense = () => {
           {expensesList.map((item, index) => (
             <tr key={index}>
               <td>{item.name}</td>
-              <td>{item.amount}</td>
+              <td>${item.amount}</td>
               <td>{item.date}</td>
               <td>{item.category}</td>
               <td>{item.source}</td>
