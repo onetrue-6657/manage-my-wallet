@@ -9,7 +9,7 @@ function App() {
     <div>
       <Header />
       <main>
-        <div class="intro">
+        <div className="intro">
           <h2>Welcome to Manage My Wallet!</h2>
           <p>
             This is a simple application for managing your personal finances.

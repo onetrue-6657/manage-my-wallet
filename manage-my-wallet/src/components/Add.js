@@ -1,7 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { NumericFormat } from "react-number-format";
 
 const AddExpense = () => {
+  const [expensesList, setExpensesList] = useState(() => {
+    const storedExpenses = localStorage.getItem("expensesList");
+    return storedExpenses ? JSON.parse(storedExpenses) : [];
+  });
+
   const [expense, setExpense] = useState({
     name: "",
     amount: "",
@@ -10,7 +15,18 @@ const AddExpense = () => {
     source: "",
   });
 
-  const [expensesList, setExpensesList] = useState([]);
+  useEffect(() => {
+    const storedExpenses = localStorage.getItem("expensesList");
+    console.log("Loaded from storage:", storedExpenses);
+    if (storedExpenses) {
+      setExpensesList(JSON.parse(storedExpenses));
+    }
+  }, []);
+
+  useEffect(() => {
+    console.log("Saving to storage:", expensesList);
+    localStorage.setItem("expensesList", JSON.stringify(expensesList));
+  }, [expensesList]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -44,6 +60,11 @@ const AddExpense = () => {
   const handleRemove = (index) => {
     setExpensesList((prevList) => prevList.filter((_, i) => i !== index));
   };
+
+  const totalAmount = expensesList
+    .reduce((total, item) => total + parseFloat(item.amount || 0), 0)
+    .toFixed(2);
+  const totalTransactions = expensesList.length;
 
   return (
     <div className="add">
@@ -111,6 +132,10 @@ const AddExpense = () => {
       </form>
 
       <h3>Expense List</h3>
+      <div className="total-info">
+        <p>Total Amount: ${totalAmount}</p>
+        <p>Total Transactions: {totalTransactions}</p>
+      </div>
       <table>
         <thead>
           <tr>
@@ -126,7 +151,16 @@ const AddExpense = () => {
           {expensesList.map((item, index) => (
             <tr key={index}>
               <td>{item.name}</td>
-              <td>${item.amount}</td>
+              <td>
+                <NumericFormat
+                  value={item.amount}
+                  displayType="text"
+                  thousandSeparator={true}
+                  prefix="$"
+                  decimalScale={2}
+                  fixedDecimalScale={true}
+                />
+              </td>
               <td>{item.date}</td>
               <td>{item.category}</td>
               <td>{item.source}</td>
