@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { NumericFormat } from "react-number-format";
 
 const AddExpense = () => {
@@ -14,6 +14,10 @@ const AddExpense = () => {
     category: "",
     source: "",
   });
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
+  const tableRef = useRef(null);
 
   useEffect(() => {
     const storedExpenses = localStorage.getItem("expensesList");
@@ -65,6 +69,25 @@ const AddExpense = () => {
     .reduce((total, item) => total + parseFloat(item.amount || 0), 0)
     .toFixed(2);
   const totalTransactions = expensesList.length;
+
+  const indexOfLastExpense = currentPage * itemsPerPage;
+  const indexOfFirstExpense = indexOfLastExpense - itemsPerPage;
+  const currentExpenses = expensesList.slice(
+    indexOfFirstExpense,
+    indexOfLastExpense
+  );
+
+  const totalPages = Math.ceil(expensesList.length / itemsPerPage);
+
+  const handlePageChange = (direction) => {
+    const scrollY = tableRef.current.scrollTop;
+    setCurrentPage((prevPage) => {
+      const newPage = direction === "next" ? prevPage + 1 : prevPage - 1;
+      return Math.min(Math.max(newPage, 1), totalPages);
+    });
+
+    tableRef.current.scrollTop = scrollY;
+  };
 
   return (
     <div className="add">
@@ -136,7 +159,7 @@ const AddExpense = () => {
         <p>Total Amount: ${totalAmount}</p>
         <p>Total Transactions: {totalTransactions}</p>
       </div>
-      <table>
+      <table ref={tableRef}>
         <thead>
           <tr>
             <th>Name</th>
@@ -148,7 +171,7 @@ const AddExpense = () => {
           </tr>
         </thead>
         <tbody>
-          {expensesList.map((item, index) => (
+          {currentExpenses.map((item, index) => (
             <tr key={index}>
               <td>{item.name}</td>
               <td>
@@ -173,6 +196,24 @@ const AddExpense = () => {
       </table>
 
       {expensesList.length === 0 && <p>No Records.</p>}
+
+      <div className="pagination">
+        <button
+          onClick={() => handlePageChange("previous")}
+          disabled={currentPage === 1}
+        >
+          Previous
+        </button>
+        <span>
+          Page {currentPage} of {totalPages}
+        </span>
+        <button
+          onClick={() => handlePageChange("next")}
+          disabled={currentPage === totalPages}
+        >
+          Next
+        </button>
+      </div>
     </div>
   );
 };

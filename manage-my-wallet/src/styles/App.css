@@ -124,3 +124,16 @@ td {
   flex: 1;
   text-align: center;
 }
+
+/* Pagination */
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.pagination button {
+  margin-left: 10px;
+  margin-right: 10px;
+}
