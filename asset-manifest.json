@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/manage-my-wallet/static/css/main.2a79944f.css",
+    "main.js": "/manage-my-wallet/static/js/main.c918290b.js",
+    "static/js/453.4e32b2be.chunk.js": "/manage-my-wallet/static/js/453.4e32b2be.chunk.js",
+    "index.html": "/manage-my-wallet/index.html",
+    "main.2a79944f.css.map": "/manage-my-wallet/static/css/main.2a79944f.css.map",
+    "main.c918290b.js.map": "/manage-my-wallet/static/js/main.c918290b.js.map",
+    "453.4e32b2be.chunk.js.map": "/manage-my-wallet/static/js/453.4e32b2be.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.2a79944f.css",
+    "static/js/main.c918290b.js"
+  ]
+}
