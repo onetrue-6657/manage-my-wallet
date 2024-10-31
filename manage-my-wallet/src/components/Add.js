@@ -65,6 +65,16 @@ const AddExpense = () => {
     setExpensesList((prevList) => prevList.filter((_, i) => i !== index));
   };
 
+  const handleCopy = (index) => {
+    setExpense({
+      name: expensesList[index].name,
+      amount: expensesList[index].amount,
+      category: expensesList[index].category,
+      source: expensesList[index].source,
+      date: expensesList[index].date,
+    });
+  };
+
   const totalAmount = expensesList
     .reduce((total, item) => total + parseFloat(item.amount || 0), 0)
     .toFixed(2);
@@ -189,6 +199,7 @@ const AddExpense = () => {
               <td>{item.source}</td>
               <td>
                 <button onClick={() => handleRemove(index)}>Remove</button>
+                <button onClick={() => handleCopy(index)}>Copy</button>
               </td>
             </tr>
           ))}
