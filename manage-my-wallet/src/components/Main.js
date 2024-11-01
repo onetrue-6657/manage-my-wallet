@@ -14,6 +14,8 @@ const Main = () => {
 
   const [activeSection, setActiveSection] = useState("add-expense");
 
+  const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth() + 1);
+
   const handleNavClick = (section) => {
     setActiveSection(section);
   };
@@ -132,10 +134,12 @@ const Main = () => {
 
   const indexOfLastExpense = currentPage * itemsPerPage;
   const indexOfFirstExpense = indexOfLastExpense - itemsPerPage;
-  const currentExpenses = expensesList.slice(
-    indexOfFirstExpense,
-    indexOfLastExpense
-  );
+  const currentExpenses = expensesList
+    .filter((expense) => {
+      const expenseMonth = new Date(expense.date).getMonth() + 1;
+      return expenseMonth === selectedMonth;
+    })
+    .slice(indexOfFirstExpense, indexOfLastExpense);
 
   const totalPages = Math.ceil(expensesList.length / itemsPerPage);
 
@@ -157,6 +161,27 @@ const Main = () => {
           <div className="total-info">
             <p>Total Amount: ${totalAmount}</p>
             <p>Total Transactions: {totalTransactions}</p>
+          </div>
+          <div className="month-filter">
+            <label htmlFor="month-select">Filter by Month:</label>
+            <select
+              id="month-select"
+              value={selectedMonth}
+              onChange={(e) => setSelectedMonth(Number(e.target.value))}
+            >
+              <option value="1">January</option>
+              <option value="2">February</option>
+              <option value="3">March</option>
+              <option value="4">April</option>
+              <option value="5">May</option>
+              <option value="6">June</option>
+              <option value="7">July</option>
+              <option value="8">August</option>
+              <option value="9">September</option>
+              <option value="10">October</option>
+              <option value="11">November</option>
+              <option value="12">December</option>
+            </select>
           </div>
           <table ref={tableRef}>
             <thead>

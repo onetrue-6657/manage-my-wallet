@@ -73,6 +73,7 @@ h2 {
 }
 
 .total-info {
+  margin-top: -2%;
   display: flex;
   justify-content: space-between;
   width: 100%;
@@ -82,6 +83,39 @@ h2 {
 .total-info p {
   flex: 1;
   text-align: center;
+  font-size: 120%;
+}
+
+.month-filter {
+  margin-top: -2%;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.month-filter label {
+  margin-right: 10px;
+}
+
+.month-filter select {
+  padding: 0.8%;
+  text-align: center;
+  font-size: 100%;
+  color: #333;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  transition: all 0.3s ease;
+  background-color: white;
+  cursor: pointer;
+  width: 15%;
+}
+
+.month-filter select:hover,
+.month-filter select.active {
+  color: #007bff;
+  background-color: #e6f2ff;
+  border-color: #007bff;
 }
 
 table {
