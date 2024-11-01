@@ -1,7 +1,7 @@
 import React from "react";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import Add from "./components/Add";
+import Main from "./components/Main";
 import "./styles/App.css";
 
 function App() {
@@ -17,7 +17,7 @@ function App() {
             your net worth.
           </p>
         </div>
-        <Add />
+        <Main />
       </main>
       <Footer />
     </div>

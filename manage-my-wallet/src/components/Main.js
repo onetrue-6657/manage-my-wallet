@@ -6,7 +6,7 @@ import copyIcon from "../icons/copy.png";
 import editIcon from "../icons/edit.png";
 import removeIcon from "../icons/remove.png";
 
-const Add = () => {
+const Main = () => {
   const [expensesList, setExpensesList] = useState(() => {
     const storedExpenses = localStorage.getItem("expensesList");
     return storedExpenses ? JSON.parse(storedExpenses) : [];
@@ -267,4 +267,4 @@ const Add = () => {
   );
 };
 
-export default Add;
+export default Main;
