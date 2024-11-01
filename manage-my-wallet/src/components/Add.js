@@ -2,6 +2,9 @@ import React, { useEffect, useState, useRef } from "react";
 import { NumericFormat } from "react-number-format";
 import PieChart from "./PieChart";
 import AddExpense from "./AddExpense";
+import copyIcon from "../icons/copy.png";
+import editIcon from "../icons/edit.png";
+import removeIcon from "../icons/remove.png";
 
 const Add = () => {
   const [expensesList, setExpensesList] = useState(() => {
@@ -26,6 +29,8 @@ const Add = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
   const tableRef = useRef(null);
+
+  const [editingIndex, setEditingIndex] = useState(null);
 
   useEffect(() => {
     const storedExpenses = localStorage.getItem("expensesList");
@@ -58,7 +63,16 @@ const Add = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setExpensesList((prevList) => [...prevList, expense]);
+    if (editingIndex !== null) {
+      setExpensesList((prevList) => {
+        const updatedList = [...prevList];
+        updatedList[editingIndex] = expense;
+        return updatedList;
+      });
+      setEditingIndex(null);
+    } else {
+      setExpensesList((prevList) => [...prevList, expense]);
+    }
 
     setExpense({
       name: "",
@@ -81,6 +95,12 @@ const Add = () => {
       source: expensesList[index].source,
       date: expensesList[index].date,
     });
+  };
+
+  const handleEdit = (index) => {
+    const expenseToEdit = expensesList[index];
+    setExpense(expenseToEdit);
+    setEditingIndex(index);
   };
 
   const totalAmount = expensesList
@@ -144,12 +164,17 @@ const Add = () => {
                   <td>{item.date}</td>
                   <td>{item.category}</td>
                   <td>{item.source}</td>
-                  <td>
+                  <td className="operation-column">
                     <div className="operation-button">
                       <button onClick={() => handleRemove(index)}>
-                        Remove
+                        <img src={removeIcon} alt="Remove" />
                       </button>
-                      <button onClick={() => handleCopy(index)}>Copy</button>
+                      <button onClick={() => handleCopy(index)}>
+                        <img src={copyIcon} alt="Copy" />
+                      </button>
+                      <button onClick={() => handleEdit(index)}>
+                        <img src={editIcon} alt="Edit" />
+                      </button>
                     </div>
                   </td>
                 </tr>
