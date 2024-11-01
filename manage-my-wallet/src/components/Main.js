@@ -109,7 +109,15 @@ const Main = () => {
   };
 
   const handleRemove = (index) => {
-    setExpensesList((prevList) => prevList.filter((_, i) => i !== index));
+    const expenseToRemove = currentExpenses[index];
+    const globalIndex = expensesList.findIndex(
+      (exp) => exp === expenseToRemove
+    );
+    if (globalIndex !== -1) {
+      setExpensesList((prevList) =>
+        prevList.filter((_, i) => i !== globalIndex)
+      );
+    }
   };
 
   const handleClear = (index) => {
@@ -123,13 +131,17 @@ const Main = () => {
   };
 
   const handleCopy = (index) => {
-    setExpense({
-      name: expensesList[index].name,
-      amount: expensesList[index].amount,
-      category: expensesList[index].category,
-      source: expensesList[index].source,
-      date: expensesList[index].date,
-    });
+    const expenseToCopy = currentExpenses[index];
+
+    if (expenseToCopy) {
+      setExpense({
+        name: expenseToCopy.name,
+        amount: expenseToCopy.amount,
+        category: expenseToCopy.category,
+        source: expenseToCopy.source,
+        date: expenseToCopy.date,
+      });
+    }
   };
 
   const totalAmount = expensesList
