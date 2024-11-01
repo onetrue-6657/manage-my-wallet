@@ -26,6 +26,8 @@ const Add = () => {
     source: "",
   });
 
+  const [sortOrder, setSortOrder] = useState("asc");
+
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
   const tableRef = useRef(null);
@@ -61,18 +63,36 @@ const Add = () => {
     }));
   };
 
+  const toggleSortOrder = () => {
+    setSortOrder((prevOrder) => {
+      const newOrder = prevOrder === "asc" ? "desc" : "asc";
+      const sortedList = [...expensesList].sort((a, b) => {
+        return newOrder === "asc"
+          ? new Date(a.date) - new Date(b.date)
+          : new Date(b.date) - new Date(a.date);
+      });
+      setExpensesList(sortedList);
+      return newOrder;
+    });
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (editingIndex !== null) {
-      setExpensesList((prevList) => {
-        const updatedList = [...prevList];
-        updatedList[editingIndex] = expense;
-        return updatedList;
-      });
-      setEditingIndex(null);
-    } else {
-      setExpensesList((prevList) => [...prevList, expense]);
-    }
+
+    const updatedExpenses =
+      editingIndex !== null
+        ? expensesList.map((item, index) =>
+            index === editingIndex ? expense : item
+          )
+        : [...expensesList, expense];
+
+    const sortedExpenses = updatedExpenses.sort((a, b) => {
+      return sortOrder === "asc"
+        ? new Date(a.date) - new Date(b.date)
+        : new Date(b.date) - new Date(a.date);
+    });
+
+    setExpensesList(sortedExpenses);
 
     setExpense({
       name: "",
@@ -81,6 +101,8 @@ const Add = () => {
       source: "",
       date: "",
     });
+
+    setEditingIndex(null); // 结束编辑状态
   };
 
   const handleRemove = (index) => {
@@ -185,6 +207,9 @@ const Add = () => {
           {expensesList.length === 0 && <p>No Records.</p>}
 
           <div className="pagination">
+            <button onClick={toggleSortOrder}>
+              Sort by Date {sortOrder === "asc" ? "Descending" : "Ascending"}
+            </button>
             <button
               onClick={() => handlePageChange("previous")}
               disabled={currentPage === 1}
