@@ -1,11 +1,19 @@
 import React, { useEffect, useState, useRef } from "react";
 import { NumericFormat } from "react-number-format";
+import PieChart from "./PieChart";
+import AddExpense from "./AddExpense";
 
-const AddExpense = () => {
+const Add = () => {
   const [expensesList, setExpensesList] = useState(() => {
     const storedExpenses = localStorage.getItem("expensesList");
     return storedExpenses ? JSON.parse(storedExpenses) : [];
   });
+
+  const [activeSection, setActiveSection] = useState("add-expense");
+
+  const handleNavClick = (section) => {
+    setActiveSection(section);
+  };
 
   const [expense, setExpense] = useState({
     name: "",
@@ -48,7 +56,7 @@ const AddExpense = () => {
     }));
   };
 
-  const handleSumbit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     setExpensesList((prevList) => [...prevList, expense]);
 
@@ -101,132 +109,112 @@ const AddExpense = () => {
 
   return (
     <div className="add">
-      <h2>Add an expense</h2>
-      <form onSubmit={handleSumbit}>
-        <div className="form-group">
-          <label>Name: </label>
-          <input
-            type="text"
-            name="name"
-            value={expense.name}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label>Amount: </label>
-          <NumericFormat
-            id="amount"
-            name="amount"
-            className="amount-input"
-            prefix="$"
-            thousandSeparator={true}
-            decimalScale={2}
-            fixedDecimalScale={true}
-            allowNegative={false}
-            placeholder="$0.00"
-            onValueChange={handleAmountChange}
-            value={expense.amount}
-          />
-        </div>
-        <div className="form-group">
-          <label>Date: </label>
-          <input
-            type="date"
-            name="date"
-            value={expense.date}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label>Category: </label>
-          <input
-            type="text"
-            name="category"
-            value={expense.category}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label>Source: </label>
-          <input
-            type="text"
-            name="source"
-            value={expense.source}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="submit-button">
-          <button type="submit">Submit</button>
-        </div>
-      </form>
+      <div className="container">
+        <div className="left-section">
+          <h2>Expense List</h2>
+          <div className="total-info">
+            <p>Total Amount: ${totalAmount}</p>
+            <p>Total Transactions: {totalTransactions}</p>
+          </div>
+          <table ref={tableRef}>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Amount</th>
+                <th>Date</th>
+                <th>Category</th>
+                <th>Source</th>
+                <th>Operation</th>
+              </tr>
+            </thead>
+            <tbody>
+              {currentExpenses.map((item, index) => (
+                <tr key={index}>
+                  <td>{item.name}</td>
+                  <td>
+                    <NumericFormat
+                      value={item.amount}
+                      displayType="text"
+                      thousandSeparator={true}
+                      prefix="$"
+                      decimalScale={2}
+                      fixedDecimalScale={true}
+                    />
+                  </td>
+                  <td>{item.date}</td>
+                  <td>{item.category}</td>
+                  <td>{item.source}</td>
+                  <td>
+                    <div className="operation-button">
+                      <button onClick={() => handleRemove(index)}>
+                        Remove
+                      </button>
+                      <button onClick={() => handleCopy(index)}>Copy</button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
 
-      <h3>Expense List</h3>
-      <div className="total-info">
-        <p>Total Amount: ${totalAmount}</p>
-        <p>Total Transactions: {totalTransactions}</p>
-      </div>
-      <table ref={tableRef}>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Amount</th>
-            <th>Date</th>
-            <th>Category</th>
-            <th>Source</th>
-            <th>Operation</th>
-          </tr>
-        </thead>
-        <tbody>
-          {currentExpenses.map((item, index) => (
-            <tr key={index}>
-              <td>{item.name}</td>
-              <td>
-                <NumericFormat
-                  value={item.amount}
-                  displayType="text"
-                  thousandSeparator={true}
-                  prefix="$"
-                  decimalScale={2}
-                  fixedDecimalScale={true}
-                />
-              </td>
-              <td>{item.date}</td>
-              <td>{item.category}</td>
-              <td>{item.source}</td>
-              <td>
-                <button onClick={() => handleRemove(index)}>Remove</button>
-                <button onClick={() => handleCopy(index)}>Copy</button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+          {expensesList.length === 0 && <p>No Records.</p>}
 
-      {expensesList.length === 0 && <p>No Records.</p>}
+          <div className="pagination">
+            <button
+              onClick={() => handlePageChange("previous")}
+              disabled={currentPage === 1}
+            >
+              Previous
+            </button>
+            <span>
+              Page {currentPage} of {totalPages}
+            </span>
+            <button
+              onClick={() => handlePageChange("next")}
+              disabled={currentPage === totalPages}
+            >
+              Next
+            </button>
+          </div>
+        </div>
 
-      <div className="pagination">
-        <button
-          onClick={() => handlePageChange("previous")}
-          disabled={currentPage === 1}
-        >
-          Previous
-        </button>
-        <span>
-          Page {currentPage} of {totalPages}
-        </span>
-        <button
-          onClick={() => handlePageChange("next")}
-          disabled={currentPage === totalPages}
-        >
-          Next
-        </button>
+        <div className="right-section">
+          <nav className="navbar">
+            <ul>
+              <li>
+                <button onClick={() => handleNavClick("add-expense")}>
+                  Add an Expense
+                </button>
+              </li>
+              <li>
+                <button onClick={() => handleNavClick("view-ratio")}>
+                  View Expenses Ratio
+                </button>
+              </li>
+              <li>
+                <button onClick={() => handleNavClick("category")}>
+                  Expenses by Category
+                </button>
+              </li>
+            </ul>
+          </nav>
+
+          {activeSection === "add-expense" && (
+            <AddExpense
+              expense={expense}
+              handleChange={handleChange}
+              handleAmountChange={handleAmountChange}
+              handleSubmit={handleSubmit}
+            />
+          )}
+          {activeSection === "view-ratio" && (
+            <PieChart expenses={expensesList} />
+          )}
+          {activeSection === "category" && <div>Expense By Category</div>}
+        </div>
       </div>
     </div>
   );
 };
 
-export default AddExpense;
+export default Add;
