@@ -6,6 +6,7 @@ const AddExpense = ({
   handleChange,
   handleAmountChange,
   handleSubmit,
+  handleClear,
 }) => {
   return (
     <div className="add-expense">
@@ -69,6 +70,9 @@ const AddExpense = ({
         </div>
         <div className="submit-button">
           <button type="submit">Submit</button>
+          <button type="clear" onClick={handleClear}>
+            Clear
+          </button>
         </div>
       </form>
     </div>

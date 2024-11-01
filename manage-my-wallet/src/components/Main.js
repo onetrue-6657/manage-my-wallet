@@ -77,6 +77,7 @@ const Main = () => {
       return newOrder;
     });
   };
+  const [currentExpenses, setCurrentExpenses] = useState([]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -104,11 +105,21 @@ const Main = () => {
       date: "",
     });
 
-    setEditingIndex(null); // 结束编辑状态
+    setEditingIndex(null);
   };
 
   const handleRemove = (index) => {
     setExpensesList((prevList) => prevList.filter((_, i) => i !== index));
+  };
+
+  const handleClear = (index) => {
+    setExpense({
+      name: "",
+      amount: "",
+      category: "",
+      source: "",
+      date: "",
+    });
   };
 
   const handleCopy = (index) => {
@@ -121,27 +132,35 @@ const Main = () => {
     });
   };
 
-  const handleEdit = (index) => {
-    const expenseToEdit = expensesList[index];
-    setExpense(expenseToEdit);
-    setEditingIndex(index);
-  };
-
   const totalAmount = expensesList
     .reduce((total, item) => total + parseFloat(item.amount || 0), 0)
     .toFixed(2);
   const totalTransactions = expensesList.length;
 
-  const indexOfLastExpense = currentPage * itemsPerPage;
-  const indexOfFirstExpense = indexOfLastExpense - itemsPerPage;
-  const currentExpenses = expensesList
-    .filter((expense) => {
+  useEffect(() => {
+    const indexOfLastExpense = currentPage * itemsPerPage;
+    const indexOfFirstExpense = indexOfLastExpense - itemsPerPage;
+
+    const filteredExpenses = expensesList.filter((expense) => {
       const expenseMonth = new Date(expense.date).getMonth() + 1;
       return expenseMonth === selectedMonth;
-    })
-    .slice(indexOfFirstExpense, indexOfLastExpense);
+    });
+
+    const current = filteredExpenses.slice(
+      indexOfFirstExpense,
+      indexOfLastExpense
+    );
+    setCurrentExpenses(current);
+  }, [expensesList, currentPage, selectedMonth]);
 
   const totalPages = Math.ceil(expensesList.length / itemsPerPage);
+
+  const handleEdit = (index) => {
+    const expenseToEdit = currentExpenses[index];
+    const globalIndex = expensesList.findIndex((exp) => exp === expenseToEdit);
+    setExpense(expenseToEdit);
+    setEditingIndex(globalIndex);
+  };
 
   const handlePageChange = (direction) => {
     const scrollY = tableRef.current.scrollTop;
@@ -280,6 +299,7 @@ const Main = () => {
               handleChange={handleChange}
               handleAmountChange={handleAmountChange}
               handleSubmit={handleSubmit}
+              handleClear={handleClear}
             />
           )}
           {activeSection === "view-ratio" && (
