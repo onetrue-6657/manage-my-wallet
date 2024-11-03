@@ -8,6 +8,7 @@
     "dev": "concurrently \"npm run client\" \"npm run server\""
   },
   "devDependencies": {
-    "concurrently": "^9.0.1"
+    "concurrently": "^9.0.1",
+    "gh-pages": "^6.2.0"
   }
 }
