@@ -35,6 +35,7 @@ const Main = () => {
   const tableRef = useRef(null);
 
   const [editingIndex, setEditingIndex] = useState(null);
+  const [filteredExpenses, setFilteredExpenses] = useState([]);
 
   useEffect(() => {
     const storedExpenses = localStorage.getItem("expensesList");
@@ -108,6 +109,10 @@ const Main = () => {
     setEditingIndex(null);
   };
 
+  const getCurrentYearMonth = (date) => {
+    return date.toISOString().slice(0, 7); 
+  };
+
   const handleRemove = (index) => {
     const expenseToRemove = currentExpenses[index];
     const globalIndex = expensesList.findIndex(
@@ -147,25 +152,38 @@ const Main = () => {
   const totalAmount = expensesList
     .reduce((total, item) => total + parseFloat(item.amount || 0), 0)
     .toFixed(2);
+  
   const totalTransactions = expensesList.length;
+
+  useEffect(() => {
+    const currentYearMonth = `${new Date().getFullYear()}-${String(selectedMonth).padStart(2, '0')}`;
+  
+    const filtered = expensesList.filter((expense) => {
+      const expenseYearMonth = getCurrentYearMonth(new Date(expense.date));
+      return expenseYearMonth === currentYearMonth;
+    });
+  
+    setFilteredExpenses(filtered);
+    setCurrentPage(1); 
+  }, [expensesList, selectedMonth]);
 
   useEffect(() => {
     const indexOfLastExpense = currentPage * itemsPerPage;
     const indexOfFirstExpense = indexOfLastExpense - itemsPerPage;
+    const current = filteredExpenses.slice(indexOfFirstExpense, indexOfLastExpense);
+    setCurrentExpenses(current);
+  }, [filteredExpenses, currentPage, itemsPerPage]);
 
-    const filteredExpenses = expensesList.filter((expense) => {
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [selectedMonth]);
+  
+  const totalPages = Math.ceil(
+    expensesList.filter((expense) => {
       const expenseMonth = new Date(expense.date).getMonth() + 1;
       return expenseMonth === selectedMonth;
-    });
-
-    const current = filteredExpenses.slice(
-      indexOfFirstExpense,
-      indexOfLastExpense
-    );
-    setCurrentExpenses(current);
-  }, [expensesList, currentPage, selectedMonth]);
-
-  const totalPages = Math.ceil(expensesList.length / itemsPerPage);
+    }).length / itemsPerPage
+  );
 
   const handleEdit = (index) => {
     const expenseToEdit = currentExpenses[index];
@@ -175,13 +193,10 @@ const Main = () => {
   };
 
   const handlePageChange = (direction) => {
-    const scrollY = tableRef.current.scrollTop;
     setCurrentPage((prevPage) => {
       const newPage = direction === "next" ? prevPage + 1 : prevPage - 1;
       return Math.min(Math.max(newPage, 1), totalPages);
     });
-
-    tableRef.current.scrollTop = scrollY;
   };
 
   return (
@@ -226,7 +241,8 @@ const Main = () => {
               </tr>
             </thead>
             <tbody>
-              {currentExpenses.map((item, index) => (
+            {currentExpenses.length > 0 ? (
+              currentExpenses.map((item, index) => (
                 <tr key={index}>
                   <td>{item.name}</td>
                   <td>
@@ -256,33 +272,40 @@ const Main = () => {
                     </div>
                   </td>
                 </tr>
-              ))}
+              ))
+            ) : (
+              <tr>
+                <td colSpan="6">No Records.</td>
+              </tr>
+            )}
             </tbody>
           </table>
 
-          {expensesList.length === 0 && <p>No Records.</p>}
-
-          <div className="pagination">
-            <button onClick={toggleSortOrder}>
-              Sort by Date {sortOrder === "asc" ? "Descending" : "Ascending"}
-            </button>
-            <button
-              onClick={() => handlePageChange("previous")}
-              disabled={currentPage === 1}
-            >
-              Previous
-            </button>
-            <span>
-              Page {currentPage} of {totalPages}
-            </span>
-            <button
-              onClick={() => handlePageChange("next")}
-              disabled={currentPage === totalPages}
-            >
-              Next
-            </button>
+          {totalPages === 0 ? (
+            <span><p style={{ textAlign: "center" }}>Page 0 of 0</p></span>
+          ) : (
+            <div className="pagination">
+              <button onClick={toggleSortOrder}>
+                Sort by Date {sortOrder === "asc" ? "Descending" : "Ascending"}
+              </button>
+              <button
+                onClick={() => handlePageChange("previous")}
+                disabled={currentPage === 1}
+              >
+                Previous
+              </button>
+              <span>
+                Page {totalPages === 0 ? 0 : currentPage} of {totalPages}
+              </span>
+              <button
+                onClick={() => handlePageChange("next")}
+                disabled={currentPage === totalPages}
+              >
+                Next
+              </button>
+            </div>
+          )};
           </div>
-        </div>
 
         <div className="right-section">
           <nav className="navbar">
