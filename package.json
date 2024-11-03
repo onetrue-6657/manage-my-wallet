@@ -1,0 +1,13 @@
+{
+  "name": "manage-my-wallet",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "client": "npm start --prefix manage-my-wallet",
+    "server": "nodemon server.js --prefix backend-management",
+    "dev": "concurrently \"npm run client\" \"npm run server\""
+  },
+  "devDependencies": {
+    "concurrently": "^9.0.1"
+  }
+}
