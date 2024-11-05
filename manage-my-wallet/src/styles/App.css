@@ -61,7 +61,6 @@ footer {
   position: relative;
 }
 
-
 /* List */
 
 h2 {
@@ -87,7 +86,6 @@ h2 {
   text-align: center;
   margin-left: 4%;
 }
-
 
 .total-info select {
   display: flex;
@@ -118,7 +116,7 @@ h2 {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px; 
+  gap: 10px;
   margin-bottom: 2%;
 }
 
@@ -289,7 +287,7 @@ td {
   text-align: center;
   background-color: white;
   cursor: pointer;
-  margin-top: -100%
+  margin-top: -100%;
 }
 
 .navbar ul li button:hover,
@@ -413,4 +411,109 @@ td {
   color: #007bff;
   background-color: #e6f2ff;
   border-color: #007bff;
+}
+
+/* Calculator */
+
+.calculator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.filter-section {
+  width: 100%;
+  max-width: 600px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+  text-align: center;
+  align-items: center;
+  width: 70%;
+}
+
+.filter-group select {
+  padding: 2%;
+  font-size: 100%;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  box-sizing: border-box;
+  transition: all 0.3s ease;
+  text-align: center;
+  background-color: white;
+  cursor: pointer;
+  width: 50%;
+}
+
+.filter-group select:hover,
+.filter-group select.active {
+  color: #007bff;
+  background-color: #e6f2ff;
+  border-color: #007bff;
+}
+
+.filter-group label {
+  margin-bottom: 5px;
+}
+
+.filter-group input {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.horizontal-slider {
+  width: 80%; /* 设置滑动条的宽度 */
+  margin: 10%;
+}
+
+.thumb {
+  height: 10px;
+  width: 10px;
+  background-color: #007bff;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.track {
+  top: 50%;
+  height: 4px;
+  background: #ddd;
+}
+
+.result-section {
+  width: 100%;
+  max-width: 600px;
+}
+
+.result-section table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.result-section th,
+.result-section td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+.result-section th {
+  background-color: #f2f2f2;
+}
+
+.total-amount,
+.total-transactions {
+  font-size: 1.2em;
+  font-weight: bold;
+  text-align: center;
 }

@@ -8,6 +8,7 @@ import removeIcon from "../icons/remove.png";
 import addIcon from "../icons/add.png";
 import calculatorIcon from "../icons/calculator.png";
 import piechartIcon from "../icons/piechart.png";
+import Calculator from "./Calculator";
 
 const Main = () => {
   const [expensesList, setExpensesList] = useState(() => {
@@ -453,7 +454,9 @@ const Main = () => {
               <PieChart expenses={expensesList} className="pie-chart" />
             </div>
           )}
-          {activeSection === "category" && <div>Expense By Category</div>}
+          {activeSection === "category" && (
+            <Calculator expenses={expensesList} />
+          )}
         </div>
       </div>
     </div>
