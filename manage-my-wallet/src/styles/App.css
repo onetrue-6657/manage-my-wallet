@@ -61,10 +61,6 @@ footer {
   position: relative;
 }
 
-.right-section {
-  padding-left: 20px;
-  border-left: 1px solid #ccc;
-}
 
 /* List */
 
@@ -75,7 +71,7 @@ h2 {
 .total-info {
   margin-top: -2%;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-aroud;
   width: 100%;
   margin-bottom: 1rem;
 }
@@ -83,7 +79,47 @@ h2 {
 .total-info p {
   flex: 1;
   text-align: center;
-  font-size: 120%;
+  font-size: 110%;
+}
+
+.total-info label {
+  font-size: 110%;
+  text-align: center;
+  margin-left: 4%;
+}
+
+
+.total-info select {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1%;
+  font-size: 100%;
+  color: #333;
+  text-decoration: none;
+  border: 1px solid #ddd;
+  border-left: none;
+  border-radius: 20px;
+  transition: all 0.3s ease;
+  text-align: center;
+  background-color: white;
+  cursor: pointer;
+  width: 15%;
+}
+
+.total-info select:hover,
+.total-info select.active {
+  color: #007bff;
+  background-color: #e6f2ff;
+  border-color: #007bff;
+}
+
+.total-info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px; 
+  margin-bottom: 2%;
 }
 
 .month-filter {
@@ -204,41 +240,56 @@ td {
   border-color: #007bff;
 }
 
+/* Right Container */
+
+.right-section {
+  flex: 3;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-left: 1px solid #ccc;
+}
+
 /* NavBar */
 
 .navbar {
-  padding-left: 0;
-  margin: 0;
-  flex-direction: column;
   display: flex;
-  height: 100%;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+  background-color: #f8f9fa;
+  justify-content: center;
+  width: 100%;
 }
 
 .navbar ul {
+  display: flex;
   list-style: none;
   padding: 0;
-}
-
-.navbar ul li {
-  margin-bottom: 10px;
+  margin: 0;
+  width: 100%;
+  justify-content: center;
 }
 
 .navbar ul li button {
-  display: block;
-  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 10px;
   font-size: 100%;
+  width: 50px;
+  height: 50px;
   color: #333;
   text-decoration: none;
   border: 1px solid #ddd;
-  border-left: none;
-  border-radius: 0 20px 20px 0;
+  border-radius: 0 0 20px 20px;
   transition: all 0.3s ease;
   text-align: center;
   background-color: white;
   cursor: pointer;
-  width: 100%;
-  position: relative;
-  left: -10%;
+  margin-top: -100%
 }
 
 .navbar ul li button:hover,
@@ -246,6 +297,53 @@ td {
   color: #007bff;
   background-color: #e6f2ff;
   border-color: #007bff;
+}
+
+.navbar img {
+  width: 80%;
+  height: 80%;
+}
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%; /* 调整位置 */
+  left: 50%;
+  margin-left: -60px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Pie Chart */
+
+.pie-chart-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
+.pie-chart {
+  max-width: 100%;
+  max-height: 100%;
 }
 
 /* Add */
@@ -277,7 +375,7 @@ td {
   border: 1px solid #ccc;
   border-radius: 4px;
   font-size: 100%;
-  width: 50%;
+  width: 100%;
   box-sizing: border-box;
   text-align: center;
 }
@@ -306,7 +404,7 @@ td {
   align-items: center;
   background-color: white;
   cursor: pointer;
-  width: 30%;
+  width: 60%;
   margin: 3% auto 0;
 }
 

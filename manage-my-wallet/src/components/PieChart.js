@@ -1,7 +1,6 @@
 import React from "react";
 import { Pie } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend, Title } from "chart.js";
-import { NumericFormat } from "react-number-format";
 
 ChartJS.register(ArcElement, Tooltip, Legend, Title);
 
