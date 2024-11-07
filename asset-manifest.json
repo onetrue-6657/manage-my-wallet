@@ -1,20 +1,21 @@
 {
   "files": {
-    "main.css": "/manage-my-wallet/static/css/main.288b1430.css",
-    "main.js": "/manage-my-wallet/static/js/main.b3859ab6.js",
+    "main.css": "/manage-my-wallet/static/css/main.170c17cf.css",
+    "main.js": "/manage-my-wallet/static/js/main.6ea1c171.js",
     "static/js/453.4e32b2be.chunk.js": "/manage-my-wallet/static/js/453.4e32b2be.chunk.js",
     "static/media/calculator.png": "/manage-my-wallet/static/media/calculator.eea76219c7d4b11acb54.png",
     "static/media/add.png": "/manage-my-wallet/static/media/add.132696644e79a1f05c3b.png",
+    "static/media/github.png": "/manage-my-wallet/static/media/github.d7773d731f876544b86d.png",
     "static/media/piechart.png": "/manage-my-wallet/static/media/piechart.1eeb2397d27612e243ac.png",
     "static/media/remove.png": "/manage-my-wallet/static/media/remove.98b63083e25e6567e5f9.png",
     "static/media/edit.png": "/manage-my-wallet/static/media/edit.0f46e2728eb984e21ce8.png",
     "index.html": "/manage-my-wallet/index.html",
-    "main.288b1430.css.map": "/manage-my-wallet/static/css/main.288b1430.css.map",
-    "main.b3859ab6.js.map": "/manage-my-wallet/static/js/main.b3859ab6.js.map",
+    "main.170c17cf.css.map": "/manage-my-wallet/static/css/main.170c17cf.css.map",
+    "main.6ea1c171.js.map": "/manage-my-wallet/static/js/main.6ea1c171.js.map",
     "453.4e32b2be.chunk.js.map": "/manage-my-wallet/static/js/453.4e32b2be.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.288b1430.css",
-    "static/js/main.b3859ab6.js"
+    "static/css/main.170c17cf.css",
+    "static/js/main.6ea1c171.js"
   ]
 }
