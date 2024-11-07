@@ -361,10 +361,20 @@ const Main = () => {
                         <button onClick={() => handleRemove(index)}>
                           <img src={removeIcon} alt="Remove" />
                         </button>
-                        <button onClick={() => handleCopy(index)}>
+                        <button
+                          onClick={() => {
+                            handleCopy(index);
+                            handleNavClick("add-expense");
+                          }}
+                        >
                           <img src={copyIcon} alt="Copy" />
                         </button>
-                        <button onClick={() => handleEdit(index)}>
+                        <button
+                          onClick={() => {
+                            handleEdit(index);
+                            handleNavClick("add-expense");
+                          }}
+                        >
                           <img src={editIcon} alt="Edit" />
                         </button>
                       </div>

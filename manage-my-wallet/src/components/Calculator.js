@@ -89,7 +89,7 @@ const Calculator = ({ expenses }) => {
             thumbClassName="thumb"
             trackClassName="track"
             min={0}
-            max={1000}
+            max={5000}
             value={filter.amountRange}
             onChange={handleRangeChange}
             ariaLabel={["Lower thumb", "Upper thumb"]}

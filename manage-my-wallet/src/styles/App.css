@@ -471,22 +471,31 @@ td {
 }
 
 .horizontal-slider {
-  width: 80%; /* 设置滑动条的宽度 */
+  width: 300px;
+  height: 10px;
+  background: linear-gradient(to right, #ddd, #007bff, #ddd);
+  margin: 20px 0;
+  border-radius: 5px;
   margin: 10%;
 }
 
 .thumb {
-  height: 10px;
-  width: 10px;
+  height: 20px;
+  width: 20px;
   background-color: #007bff;
   border-radius: 50%;
   cursor: pointer;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .track {
-  top: 50%;
-  height: 4px;
-  background: #ddd;
+  top: 0;
+  bottom: 0;
+  background: transparent;
+  border-radius: 5px;
 }
 
 .result-section {
@@ -516,4 +525,70 @@ td {
   font-size: 1.2em;
   font-weight: bold;
   text-align: center;
+}
+
+/* Footer */
+
+footer {
+  background-color: #282c34;
+  color: white;
+  padding: 10px;
+  text-align: center;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 5%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+footer .left-section,
+footer .right-section {
+  display: flex;
+  align-items: center;
+}
+
+footer .center-section {
+  flex-grow: 1;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+footer label {
+  margin-right: 10px;
+}
+
+footer img {
+  width: 40px;
+  height: 40px;
+  margin-left: 10px;
+}
+
+footer select {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1%;
+  font-size: 100%;
+  color: #333;
+  text-decoration: none;
+  border: 1px solid #ddd;
+  border-left: none;
+  border-radius: 20px;
+  transition: all 0.3s ease;
+  text-align: center;
+  background-color: white;
+  cursor: pointer;
+  width: 10%;
+}
+
+footer select:hover,
+footer select.active {
+  color: #007bff;
+  background-color: #e6f2ff;
+  border-color: #007bff;
 }
